@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from funnycards.core.views import home
+from funnycards.products.views import product
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
+    path('produtos/', product)
 ]
