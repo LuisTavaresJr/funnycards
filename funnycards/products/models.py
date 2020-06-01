@@ -13,6 +13,5 @@ class Product(models.Model):
         verbose_name = 'produto'
         verbose_name_plural = 'produtos'
 
-
     def __str__(self):
         return self.description
