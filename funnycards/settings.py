@@ -118,8 +118,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+ENABLE_S3 = config('ENABLE_S3', cast=bool)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'funnycards', 'media')
 MEDIA_URL ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'funnycards', 'media')
+
+if ENABLE_S3:
+    STATIC_URL = 'https://funny-cards.s3-sa-east-1.amazonaws.com/static/'
+    MEDIA_URL = 'https://funny-cards.s3-sa-east-1.amazonaws.com/media/'
+    #config S3
+    DEFAULT_FILE_STORAGE = 'funnycards.core.s3utils.MediaS3BotoStorage'
+    STATICFILES_STORAGE = 'funnycards.core.s3utils.StaticS3BotoStorage'
+
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
