@@ -14,5 +14,4 @@ def product_test(request):
     products = Product.objects.all()
     context = {'products': products}
     template_name = 'products/product_test.html'
-
     return render(request, template_name, context)
